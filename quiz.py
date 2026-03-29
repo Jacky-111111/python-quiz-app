@@ -2,7 +2,6 @@ import base64
 import hashlib
 import json
 import os
-import pickle
 import random
 import secrets
 import sys
@@ -21,6 +20,7 @@ DIFFICULTY_WEIGHTS = {
     "medium": 2,
     "hard": 3,
 }
+INVALID_INPUT_MESSAGE = "Invalid input. Please enter a valid option."
 
 
 def print_dragon_banner():
@@ -38,6 +38,10 @@ Python Quiz Dragon welcomes you!
 Made by Jack Yu, with the help of Cursor.
 """
     print(dragon)
+
+
+def print_invalid_input():
+    print(INVALID_INPUT_MESSAGE)
 
 
 def hash_password(password, salt=None):
@@ -75,25 +79,37 @@ def write_json_file(path, data):
         json.dump(data, f, indent=2)
 
 
+def backup_corrupt_dat(path):
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup_path = path.with_name(f"{path.stem}.corrupt-{timestamp}{path.suffix}.bak")
+    try:
+        path.replace(backup_path)
+        print(f"Warning: {path.name} is invalid and was backed up to {backup_path.name}.")
+    except Exception:
+        print(f"Warning: {path.name} is invalid and could not be backed up.")
+
+
 def load_secure_dat(path, default):
     if not path.exists():
         save_secure_dat(path, default)
         return default
 
+    raw_text = path.read_text(encoding="utf-8").strip()
+    if not raw_text:
+        backup_corrupt_dat(path)
+        return default
+
     try:
-        raw_text = path.read_text(encoding="utf-8").strip()
-        if not raw_text:
-            save_secure_dat(path, default)
-            return default
         raw_bytes = base64.b64decode(raw_text.encode("utf-8"))
-        return pickle.loads(raw_bytes)
+        decoded = raw_bytes.decode("utf-8")
+        return json.loads(decoded)
     except Exception:
-        save_secure_dat(path, default)
+        backup_corrupt_dat(path)
         return default
 
 
 def save_secure_dat(path, obj):
-    blob = pickle.dumps(obj, protocol=pickle.HIGHEST_PROTOCOL)
+    blob = json.dumps(obj, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     encoded = base64.b64encode(blob).decode("utf-8")
     path.write_text(encoded, encoding="utf-8")
 
@@ -133,7 +149,13 @@ def load_and_validate_questions():
             print("Error: Invalid format of questions.json.")
             return None
         if q["type"] == "multiple_choice":
-            if not isinstance(q.get("options"), list) or len(q.get("options", [])) == 0:
+            options = q.get("options")
+            if not isinstance(options, list) or len(options) == 0:
+                print("Error: Invalid format of questions.json.")
+                return None
+            normalized_options = {str(opt).strip().lower() for opt in options}
+            normalized_answer = str(q.get("answer", "")).strip().lower()
+            if normalized_answer not in normalized_options:
                 print("Error: Invalid format of questions.json.")
                 return None
 
@@ -173,7 +195,7 @@ def input_non_empty(prompt):
         value = input(prompt).strip()
         if value:
             return value
-        print("Invalid input. Please enter a valid option.")
+        print_invalid_input()
 
 
 def authenticate_user():
@@ -190,7 +212,7 @@ def authenticate_user():
         if choice == "2":
             username = input_non_empty("Choose a username: ")
             if username in users:
-                print("Invalid input. Please enter a valid option.")
+                print_invalid_input()
                 continue
             password = input_non_empty("Choose a password: ")
             salt, digest = hash_password(password)
@@ -209,7 +231,7 @@ def authenticate_user():
             print(f"Welcome, {username}!")
             return username
 
-        print("Invalid input. Please enter a valid option.")
+        print_invalid_input()
 
 
 def normalize_difficulty(value):
@@ -227,7 +249,7 @@ def ask_question_count(max_count):
             if value <= 0:
                 raise ValueError
         except ValueError:
-            print("Invalid input. Please enter a valid option.")
+            print_invalid_input()
             continue
 
         if value > max_count:
@@ -244,11 +266,11 @@ def get_answer_from_user(question):
         while True:
             raw = input("Your choice: ").strip()
             if not raw.isdigit():
-                print("Invalid input. Please enter a valid option.")
+                print_invalid_input()
                 continue
             idx = int(raw)
             if idx < 1 or idx > len(question["options"]):
-                print("Invalid input. Please enter a valid option.")
+                print_invalid_input()
                 continue
             return question["options"][idx - 1]
 
@@ -266,14 +288,14 @@ def get_answer_from_user(question):
         while True:
             raw = input("Your choice: ").strip().lower()
             if raw not in valid:
-                print("Invalid input. Please enter a valid option.")
+                print_invalid_input()
                 continue
             return valid[raw]
 
     while True:
         raw = input("Your answer: ").strip()
         if not raw:
-            print("Invalid input. Please enter a valid option.")
+            print_invalid_input()
             continue
         return raw
 
@@ -289,7 +311,7 @@ def ask_feedback_rating():
         raw = input("Rate this question (1-5): ").strip()
         if raw in {"1", "2", "3", "4", "5"}:
             return int(raw)
-        print("Invalid input. Please enter a valid option.")
+        print_invalid_input()
 
 
 def update_feedback(feedback_store, question, rating):
@@ -387,7 +409,7 @@ def should_continue():
             return True
         if choice in {"n", "no"}:
             return False
-        print("Invalid input. Please enter a valid option.")
+        print_invalid_input()
 
 
 def main():
@@ -420,6 +442,9 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except EOFError:
+        print("\nInput stream ended. Exiting.")
+        os._exit(0)
     except KeyboardInterrupt:
         print("\nExiting.")
         os._exit(0)

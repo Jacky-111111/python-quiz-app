@@ -28,19 +28,24 @@
 10. [FAIL] **Security concern: unsafe deserialization via `pickle` for `.dat` files.**  
     Risk: `load_secure_dat()` decodes Base64 then calls `pickle.loads(...)` on file content in `quiz.py:88-89`. A tampered `history.dat` or `feedback.dat` can execute arbitrary code during load. This is a high-severity local code execution risk.  
     Recommendation: Replace pickle-based persistence with safe formats (`json`), with explicit schema validation.
+   - Fixed in later upgrades.
 
 11. [WARN] **Data integrity issue: corrupted `.dat` files are silently overwritten, causing potential data loss.**  
     Evidence: On decode/load errors, code immediately rewrites default values in `quiz.py:90-92`; empty file also gets overwritten in `quiz.py:85-87`.  
     Impact: History/feedback can be erased without user warning or backup.
+   - Fixed in later upgrades.
 
 12. [WARN] **Missing EOF handling can crash the app on unexpected input stream termination.**  
     Evidence: The app calls `input(...)` in many places (e.g., `quiz.py:173`, `quiz.py:188`, `quiz.py:224`, `quiz.py:245`, `quiz.py:267`) but only catches `KeyboardInterrupt` in `quiz.py:421-425`; `EOFError` is not handled.  
     Impact: Piped/automated runs or terminal EOF (`Ctrl-D`) can terminate with traceback.
+   - Fixed in later upgrades.
 
 13. [WARN] **Question schema validation is incomplete for logical correctness.**  
     Evidence: For multiple-choice questions, loader verifies `options` exists and is non-empty (`quiz.py:135-138`) but does not verify `answer` is one of the listed options.  
     Impact: Invalid banks can pass validation and create impossible/incorrectly graded questions.
+   - Fixed in later upgrades.
 
 14. [WARN] **Code quality: repeated hard-coded error message and repeated input-validation patterns reduce maintainability.**  
     Evidence: `"Invalid input. Please enter a valid option."` is duplicated in many blocks (`quiz.py:176`, `quiz.py:193`, `quiz.py:212`, `quiz.py:230`, `quiz.py:247`, `quiz.py:251`, `quiz.py:269`, `quiz.py:276`, `quiz.py:292`, `quiz.py:390`).  
     Recommendation: Centralize prompt validation/error reporting helpers to reduce repetition and drift.
+   - Fixed in later upgrades.
