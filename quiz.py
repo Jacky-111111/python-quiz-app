@@ -35,6 +35,7 @@ def print_dragon_banner():
   ""  /       |
    ""         |
 Python Quiz Dragon welcomes you!
+Made by Jack Yu, with the help of Cursor.
 """
     print(dragon)
 
