@@ -21,6 +21,7 @@ DIFFICULTY_WEIGHTS = {
     "hard": 3,
 }
 INVALID_INPUT_MESSAGE = "Invalid input. Please enter a valid option."
+QUIT_KEYWORD = "goquit"
 
 
 def print_dragon_banner():
@@ -35,13 +36,24 @@ def print_dragon_banner():
   ""  /       |
    ""         |
 Python Quiz Dragon welcomes you!
-Made by Jack Yu, with the help of Cursor.
+Built by Jack Yu, with the help of Cursor.
+
 """
     print(dragon)
 
 
 def print_invalid_input():
     print(INVALID_INPUT_MESSAGE)
+
+
+def read_user_input(prompt, lowercase=False):
+    value = input(prompt).strip()
+    if value.lower() == QUIT_KEYWORD:
+        print("Received goquit. Exiting. Bye!")
+        raise SystemExit(0)
+    if lowercase:
+        return value.lower()
+    return value
 
 
 def hash_password(password, salt=None):
@@ -192,7 +204,7 @@ def weighted_sample_without_replacement(pool, count, feedback_store):
 
 def input_non_empty(prompt):
     while True:
-        value = input(prompt).strip()
+        value = read_user_input(prompt)
         if value:
             return value
         print_invalid_input()
@@ -207,7 +219,7 @@ def authenticate_user():
     while True:
         print("\n1) Login")
         print("2) Register")
-        choice = input("Choose an option: ").strip()
+        choice = read_user_input("Choose an option: ")
 
         if choice == "2":
             username = input_non_empty("Choose a username: ")
@@ -222,8 +234,8 @@ def authenticate_user():
             continue
 
         if choice == "1":
-            username = input("Username: ").strip()
-            password = input("Password: ").strip()
+            username = read_user_input("Username: ")
+            password = read_user_input("Password: ")
             stored = users.get(username)
             if not stored or not verify_password(stored, password):
                 print("Login failed. Please try again.")
@@ -243,7 +255,7 @@ def normalize_difficulty(value):
 
 def ask_question_count(max_count):
     while True:
-        raw = input("How many questions do you want this round? ").strip()
+        raw = read_user_input("How many questions do you want this round? ")
         try:
             value = int(raw)
             if value <= 0:
@@ -264,7 +276,7 @@ def get_answer_from_user(question):
         for i, option in enumerate(question["options"], start=1):
             print(f"{i}) {option}")
         while True:
-            raw = input("Your choice: ").strip()
+            raw = read_user_input("Your choice: ")
             if not raw.isdigit():
                 print_invalid_input()
                 continue
@@ -286,14 +298,14 @@ def get_answer_from_user(question):
             "f": "false",
         }
         while True:
-            raw = input("Your choice: ").strip().lower()
+            raw = read_user_input("Your choice: ", lowercase=True)
             if raw not in valid:
                 print_invalid_input()
                 continue
             return valid[raw]
 
     while True:
-        raw = input("Your answer: ").strip()
+        raw = read_user_input("Your answer: ")
         if not raw:
             print_invalid_input()
             continue
@@ -308,7 +320,7 @@ def is_correct_answer(question, user_answer):
 
 def ask_feedback_rating():
     while True:
-        raw = input("Rate this question (1-5): ").strip()
+        raw = read_user_input("Rate this question (1-5): ")
         if raw in {"1", "2", "3", "4", "5"}:
             return int(raw)
         print_invalid_input()
@@ -381,11 +393,11 @@ def select_questions_by_filters(all_questions, feedback_store):
 
     print("\nAvailable categories:")
     print(", ".join(categories))
-    category_filter = input("Enter category to target (or press Enter for all): ").strip()
+    category_filter = read_user_input("Enter category to target (or press Enter for all): ")
 
     print("\nAvailable difficulty levels:")
     print(", ".join(difficulties))
-    difficulty_filter = input("Enter difficulty to target (or press Enter for all): ").strip().lower()
+    difficulty_filter = read_user_input("Enter difficulty to target (or press Enter for all): ", lowercase=True)
 
     filtered = []
     for q in all_questions:
@@ -404,7 +416,7 @@ def select_questions_by_filters(all_questions, feedback_store):
 
 def should_continue():
     while True:
-        choice = input("\nDo you want to continue with more quiz questions? (y/n): ").strip().lower()
+        choice = read_user_input("\nDo you want to continue with more quiz questions? (y/n): ", lowercase=True)
         if choice in {"y", "yes"}:
             return True
         if choice in {"n", "no"}:
@@ -415,6 +427,7 @@ def should_continue():
 def main():
     print_dragon_banner()
     print("Welcome to the Python Quiz App!")
+    print(f"Tip: Type '{QUIT_KEYWORD}' at any prompt to exit immediately.")
 
     questions = load_and_validate_questions()
     if questions is None:
