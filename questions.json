@@ -1,0 +1,42 @@
+{
+  "questions": [
+    {
+      "question": "What keyword is used to define a function in Python?",
+      "type": "multiple_choice",
+      "options": ["func", "define", "def", "function"],
+      "answer": "def",
+      "category": "Python Basics",
+      "difficulty": "easy"
+    },
+    {
+      "question": "A list in Python is immutable.",
+      "type": "true_false",
+      "answer": "false",
+      "category": "Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What built-in function returns the number of items in a list?",
+      "type": "short_answer",
+      "answer": "len",
+      "category": "Python Basics",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Which data type is used to store True or False values in Python?",
+      "type": "multiple_choice",
+      "options": ["int", "str", "bool", "list"],
+      "answer": "bool",
+      "category": "Python Basics",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What symbol is used to start a comment in Python?",
+      "type": "multiple_choice",
+      "options": ["//", "#", "/*", "--"],
+      "answer": "#",
+      "category": "Python Basics",
+      "difficulty": "easy"
+    }
+  ]
+}
