@@ -37,6 +37,263 @@
       "answer": "#",
       "category": "Python Basics",
       "difficulty": "easy"
+    },
+    {
+      "question": "Which built-in function converts a string like \"42\" to an integer?",
+      "type": "multiple_choice",
+      "options": ["str()", "int()", "float()", "list()"],
+      "answer": "int()",
+      "category": "Type Conversion",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Tuples in Python are mutable.",
+      "type": "true_false",
+      "answer": "false",
+      "category": "Data Structures",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What keyword is used to create a class in Python?",
+      "type": "short_answer",
+      "answer": "class",
+      "category": "Object-Oriented Programming",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Which loop is best when you know the number of iterations in advance?",
+      "type": "multiple_choice",
+      "options": ["for loop", "while loop", "do-while loop", "repeat loop"],
+      "answer": "for loop",
+      "category": "Control Flow",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What method adds a new item to the end of a list?",
+      "type": "short_answer",
+      "answer": "append",
+      "category": "Data Structures",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What is the output type of range(5) in Python 3?",
+      "type": "multiple_choice",
+      "options": ["list", "tuple", "range", "set"],
+      "answer": "range",
+      "category": "Python Basics",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Dictionary keys in Python must be hashable.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What keyword is used inside a function to return a value?",
+      "type": "short_answer",
+      "answer": "return",
+      "category": "Functions",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Which statement correctly handles exceptions in Python?",
+      "type": "multiple_choice",
+      "options": ["catch/finally", "try/except", "throw/catch", "check/error"],
+      "answer": "try/except",
+      "category": "Exceptions",
+      "difficulty": "medium"
+    },
+    {
+      "question": "List comprehensions can replace certain simple for-loops.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Comprehensions",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which expression creates a set from a list named nums?",
+      "type": "multiple_choice",
+      "options": ["set(nums)", "dict(nums)", "tuple(nums)", "list(nums)"],
+      "answer": "set(nums)",
+      "category": "Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "question": "The with statement is commonly used for safer file handling.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "File I/O",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What special method initializes a new object instance in Python classes?",
+      "type": "short_answer",
+      "answer": "__init__",
+      "category": "Object-Oriented Programming",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which module in the standard library is commonly used for regular expressions?",
+      "type": "multiple_choice",
+      "options": ["regex", "re", "match", "pattern"],
+      "answer": "re",
+      "category": "Standard Library",
+      "difficulty": "medium"
+    },
+    {
+      "question": "In Python, generators produce values lazily.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Advanced Python",
+      "difficulty": "hard"
+    },
+    {
+      "question": "What keyword is used to define an anonymous function in Python?",
+      "type": "short_answer",
+      "answer": "lambda",
+      "category": "Functions",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which decorator is used to define a method that belongs to the class instead of instances?",
+      "type": "multiple_choice",
+      "options": ["@property", "@staticmethod", "@classmethod", "@abstractmethod"],
+      "answer": "@classmethod",
+      "category": "Object-Oriented Programming",
+      "difficulty": "hard"
+    },
+    {
+      "question": "The GIL in CPython can limit true parallel execution of Python bytecode in threads.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Concurrency",
+      "difficulty": "hard"
+    },
+    {
+      "question": "What dunder method makes an object printable with str(obj)?",
+      "type": "short_answer",
+      "answer": "__str__",
+      "category": "Object-Oriented Programming",
+      "difficulty": "hard"
+    },
+    {
+      "question": "What keyword can be used inside a loop to skip the current iteration?",
+      "type": "short_answer",
+      "answer": "continue",
+      "category": "Control Flow",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Which built-in function is used to display output in Python?",
+      "type": "multiple_choice",
+      "options": ["echo()", "print()", "output()", "write()"],
+      "answer": "print()",
+      "category": "Python Basics",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Python uses indentation to define code blocks.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Syntax",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What built-in function converts a value to a string?",
+      "type": "short_answer",
+      "answer": "str",
+      "category": "Type Conversion",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Which function is commonly used to parse JSON text into Python objects?",
+      "type": "multiple_choice",
+      "options": ["json.dump()", "json.load()", "json.loads()", "json.dumps()"],
+      "answer": "json.loads()",
+      "category": "Standard Library",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A set in Python allows duplicate values.",
+      "type": "true_false",
+      "answer": "false",
+      "category": "Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What keyword is used to import a module in Python?",
+      "type": "short_answer",
+      "answer": "import",
+      "category": "Modules",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which built-in function returns both index and value while iterating?",
+      "type": "multiple_choice",
+      "options": ["zip()", "iter()", "enumerate()", "next()"],
+      "answer": "enumerate()",
+      "category": "Iteration",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Default argument values in Python functions are evaluated at function definition time.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Functions",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which special method is called when an object is invoked like a function?",
+      "type": "short_answer",
+      "answer": "__call__",
+      "category": "Object-Oriented Programming",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which exception is raised for division by zero in Python?",
+      "type": "multiple_choice",
+      "options": ["ArithmeticError", "ZeroDivisionError", "ValueError", "TypeError"],
+      "answer": "ZeroDivisionError",
+      "category": "Exceptions",
+      "difficulty": "hard"
+    },
+    {
+      "question": "In CPython, reference counting is one mechanism used for memory management.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Memory Management",
+      "difficulty": "hard"
+    },
+    {
+      "question": "What keyword is used in async functions to wait for an awaitable result?",
+      "type": "short_answer",
+      "answer": "await",
+      "category": "Concurrency",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which standard library module provides tools to work with abstract base classes?",
+      "type": "multiple_choice",
+      "options": ["types", "collections", "abc", "inspect"],
+      "answer": "abc",
+      "category": "Advanced Python",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Metaclasses can customize class creation behavior in Python.",
+      "type": "true_false",
+      "answer": "true",
+      "category": "Advanced Python",
+      "difficulty": "hard"
+    },
+    {
+      "question": "What protocol method should an iterator implement to return the next item?",
+      "type": "short_answer",
+      "answer": "__next__",
+      "category": "Iteration",
+      "difficulty": "hard"
     }
   ]
 }
