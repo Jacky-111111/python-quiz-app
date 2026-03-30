@@ -4,12 +4,14 @@ A command-line Python quiz app with local account login that loads questions fro
 
 ## Features
 
+- Dragon-like terminal welcome banner for a playful first-time experience.
 - Local user system: register and login with hashed passwords.
 - Question bank loaded from `questions.json`.
-- Supports 3 question types:
+- Supports 3 question types across multiple categories and difficulties:
   - `multiple_choice`
   - `true_false`
   - `short_answer`
+- Questions are tagged by category (for example, Python Basics, Data Structures, OOP, Concurrency) and can be targeted by category/difficulty when starting a quiz.
 - Difficulty-aware scoring (`easy`, `medium`, `hard` with different weights).
 - Quiz history and question feedback persistence.
 - Global quick exit: type `goquit` at any prompt to exit safely.

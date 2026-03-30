@@ -1,3 +1,5 @@
+# Reflection
+
 1. How far did the agent get?
 - It fully implemented my spec. The initial quiz app runs smoothly. Overall, it had 9 Passes, 4 Warns, and 1 Fail under the review of another AI agent. The only Fail lies on security concern associated with pickle. The Warns are mainly at code cleaness and data integrity. Those problems are quickly fixed later. 
 
